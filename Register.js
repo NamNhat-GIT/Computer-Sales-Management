@@ -3,13 +3,13 @@ function RegisterButton() {
     const email = document.getElementById('email').value.trim();
     const password = document.getElementById('password').value.trim();
 
-    // let isValid = true;
+    let isValid = true;
 
     // Validate Full Name
     if (fullName === '') {
         document.getElementById('NameError').textContent = 'Full Name is required.';
         isValid = false;
-    } 
+    }
 
     // Validate Email
     if (email === '') {
@@ -29,8 +29,17 @@ function RegisterButton() {
         isValid = false;
     }
 
-    // if (isValid) {
-    //     alert('Registration successful!');
-    // }
+    if (isValid) {
+        alert('Registration successful!');
+        let user = JSON.parse(localStorage.getItem('user') || '[]');
+        let NewUserData = {
+            fullName: fullName,
+            email: email,
+            password: password
+        };
+        user.push(NewUserData);
 
+        localStorage.setItem('user', JSON.stringify(user));
+        window.location.href = 'loginPage.html';
+    }
 }
