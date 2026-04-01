@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Computer Sales</title>
+    <link rel="stylesheet" href="css.css">
+    <script src="Register.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="brand">Computer Sales Management</div>
+        <nav id="siteNav"></nav>
+        <a href="index.html" class="navigate-button">Home</a>
+        <a href="ProfilePage.html" class="navigate-button">Profile</a>
+        <a href="ContactPage.html" class="navigate-button">Contact</a>
+        <a href="LoginPage.html" class="navigate-button">Login</a>
+        <a href="RegisterPage.html" class="navigate-button">Register</a>
+        <a href="MyCartPage.html" class="navigate-button">My Cart</a>
+    </header>
+    <main>
+        <section>
+            <h1>Create an Account</h1>
+            <form class="form-grid">
+                <input id="fullName" placeholder="Full Name">
+                <p id="NameError" class="error"></p>
+                <input id="email" type="email" placeholder="Email">
+                <p id="EmailError" class="error"></p>
+                <input id="password" type="password" placeholder="Password">
+                <p id="PasswordError" class="error"></p>
+                <button onclick="RegisterButton()">Register</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        2026 Computer Sales Management Systems
+    </footer>
+</body>
+</html>

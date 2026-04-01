@@ -1,0 +1,97 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f6f8;
+    color: #222;
+}
+header {
+    background-color: #0f4971;
+    color: #fff;
+    padding: 1rem 1.5rem;
+}
+header .brand {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+nav {
+    margin-top: 0.75rem;
+}
+nav a {
+    color: #d1e7ff;
+    text-decoration: none;
+    margin-right: 1rem;
+    font-weight: 600;
+}
+nav a:hover {
+    color: #fff;
+}
+main {
+    max-width: 960px;
+    margin: 2rem auto;
+    padding: 0 1.25rem;
+}
+section {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(17, 34, 59, 0.08);
+    padding: 1.75rem;
+    margin-bottom: 1.5rem;
+}
+h1, h2 {
+    margin-top: 0;
+}
+footer {
+    text-align: center;
+    padding: 1rem 1.25rem;
+    color: #5f6b7a;
+}
+.form-grid {
+    display: grid;
+    gap: 1rem;
+}
+input, button, textarea {
+    width: 100%;
+    padding: 0.9rem 1rem;
+    border: 1px solid #cbd5dd;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+button, .navigate-button {
+    display: inline-block;
+    background-color: #0f4971;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    padding: 0.9rem 1.1rem;
+}
+button:hover, .navigate-button:hover {
+    background-color: #0b3b5a;
+}
+.navigate-button {
+    margin: 1rem 0 0.75rem;
+    border-radius: 8px;
+}
+.card {
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+@media (max-width: 720px) {
+    nav {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    nav a {
+        margin-bottom: 0.5rem;
+    }
+}
+.error {
+    color: #e53e3e;
+    font-size: 0.875rem;
+    margin-top: -0.5rem;
+    margin-bottom: 0.5rem;
+}
