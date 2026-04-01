@@ -6,11 +6,17 @@ function LoginButton() {
 
     let loginUser = storedUser.find(user => user.email === email && user.password === password);
 
-    if (loginUser) {
-        alert('Login successful!');
-        localStorage.setItem('currentUser', JSON.stringify(loginUser));
-        window.location.href = 'ProfilePage.html';
+    let userByEmail = storedUser.find(user => user.email === email);
+    
+    document.getElementById('EmailError').textContent = '';
+    document.getElementById('PasswordError').textContent = '';
+
+    if (!userByEmail) {
+        document.getElementById('EmailError').textContent = 'Invalid email. Please try again.';
+    } else if (userByEmail.password !== password) {
+        document.getElementById('PasswordError').textContent = 'Invalid password. Please try again.';
     } else {
-        alert('Invalid email or password. Please try again.');
+        localStorage.setItem('currentUser', JSON.stringify(loginUser));
+        window.location.href = 'ProfilePage.html';  
     }
 }

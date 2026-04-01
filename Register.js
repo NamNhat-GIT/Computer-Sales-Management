@@ -7,7 +7,7 @@ function RegisterButton() {
 
     // Validate Full Name
     if (fullName === '') {
-        document.getElementById('NameError').textContent = 'Full Name is required.';
+        document.getElementById('NameError').textContent = 'Username is required.';
         isValid = false;
     }
 
@@ -24,13 +24,12 @@ function RegisterButton() {
     if (password === '') {
         document.getElementById('PasswordError').textContent = 'Password is required.';
         isValid = false;
-    } else if (password.length < 6) {
-        document.getElementById('PasswordError').textContent = 'Password must be at least 6 characters long.';
+    } else if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/.test(password)) {
+        document.getElementById('PasswordError').textContent = 'Password must be at least 6 characters long and contain both letters and numbers.';
         isValid = false;
     }
 
     if (isValid) {
-        alert('Registration successful!');
         let user = JSON.parse(localStorage.getItem('user') || '[]');
         let NewUserData = {
             fullName: fullName,
