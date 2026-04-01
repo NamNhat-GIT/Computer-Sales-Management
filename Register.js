@@ -40,6 +40,6 @@ function RegisterButton() {
         user.push(NewUserData);
 
         localStorage.setItem('user', JSON.stringify(user));
-        window.location.href = 'loginPage.html';
+        window.location.href = 'LoginPage.html';
     }
 }
