@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Computer Sales Management System</title>
-    <link rel="stylesheet" href="css.css">
+    <link rel="stylesheet" href="css/css.css">
+    <script type="module" src="js/Products.js" defer></script>
 </head>
 <body>
     <header>
@@ -21,19 +22,48 @@
         <section>
             <h1>Welcome to the Computer Sales Management System</h1>
         </section>
-        <section class="products-grid wider-section">
-            <span class="card">
-                <h3>Gaming Laptop</h3>
-                <p>High performance laptop for gaming and work.</p>
-                <button type="button">View Details</button>
-            </span>
-            <span class="card">
-                <h3>Desktop PC</h3>
-                <p>Powerful desktop for all your computing needs.</p>
-                <button type="button">View Details</button>
-            </span>
-    <!-- Add more product cards here -->
-        </section>
+        <!-- Category dropdown -->
+        <div class="dropdown">
+            <button class="dropdown-btn">Select Category</button>
+                <div class="dropdown-content">
+                    <a href="#" onclick="filterProducts('all')">All</a>
+                    <!-- laptop submenu -->
+                    <div class="submenu">
+                        <a href="#" onclick="filterProducts('laptops')">Laptops</a>
+                        <div class="submenu-content">
+                            <a href="#" onclick="filterProducts('ultrabooks')">Ultrabooks</a>
+                            <a href="#" onclick="filterProducts('gaming-laptop')">Gaming Laptop</a>
+                            <a href="#" onclick="filterProducts('office-laptop')">Office Laptop</a>
+                            <a href="#" onclick="filterProducts('laptops Apple')">Apple</a>
+                            <a href="#" onclick="filterProducts('laptops Dell')">Dell</a>
+                            <a href="#" onclick="filterProducts('laptops HP')">HP</a>
+                            <a href="#" onclick="filterProducts('laptops Lenovo')">Lenovo</a>
+                        </div>
+                    </div>
+                    <!-- phone submenu -->
+                    <div class="submenu">
+                        <a href="#" onclick="filterProducts('phones')">Phones</a>
+                        <div class="submenu-content">
+                            <a href="#" onclick="filterProducts('phones Apple')">Apple Phones</a>
+                            <a href="#" onclick="filterProducts('phones Samsung')">Samsung</a>
+                            <a href="#" onclick="filterProducts('phones Nokia')">Nokia</a>
+                        </div>
+                    </div>
+                    <!-- accessories submenu -->
+                    <div class="submenu">
+                        <a href="#" onclick="filterProducts('accessories')">Accessories</a>
+                        <div class="submenu-content">
+                            <a href="#" onclick="filterProducts('gaming-mouse')">Gaming Mouse</a>
+                            <a href="#" onclick="filterProducts('office-mouse')">Mouse Pads</a>
+                            <a href="#" onclick="filterProducts('gaming-keyboards')">Gaming Keyboards</a>
+                            <a href="#" onclick="filterProducts('office-keyboards')">Office Keyboards</a>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+    <!-- Display product cards -->
+        <div class="products-grid" id="productList"></div>
     </main>
     <footer>
         2026 Computer Sales Management Systems

@@ -1,0 +1,330 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f6f8;
+    color: #222;
+}
+header {
+    background-color: #0f4971;
+    color: #fff;
+    padding: 1rem 1.5rem;
+}
+header .brand {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+nav {
+    margin-top: 0.75rem;
+}
+nav a {
+    color: #d1e7ff;
+    text-decoration: none;
+    margin-right: 1rem;
+    font-weight: 600;
+}
+nav a:hover {
+    color: #fff;
+}
+main {
+    max-width: auto;
+    margin: 2rem auto;
+    padding: 0 1.25rem;
+}
+section {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(17, 34, 59, 0.08);
+    padding: 1.75rem;
+    margin-bottom: 1.5rem;
+}
+h1, h2 {
+    margin-top: 0;
+}
+footer {
+    text-align: center;
+    padding: 1rem 1.25rem;
+    color: #5f6b7a;
+}
+.form-grid {
+    display: grid;
+    gap: 1rem;
+}
+input, button, textarea {
+    width: 100%;
+    padding: 0.9rem 1rem;
+    border: 1px solid #cbd5dd;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+button, .navigate-button {
+    display: inline-block;
+    background-color: #0f4971;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    padding: 0.9rem 1.1rem;
+}
+button:hover, .navigate-button:hover, .categories button:hover {
+    background-color: #0b3b5a;
+} 
+.navigate-button {
+    margin: 1rem 0 0.75rem;
+    border-radius: 8px;
+}
+/* .card {
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+} */
+.card img {
+    width: 100%;        /* fill card width */
+    height: auto;       /* keep aspect ratio */
+    border-radius: 8px; /* optional, looks nicer */
+}
+@media (max-width: 720px) {
+    nav {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    nav a {
+        margin-bottom: 0.5rem;
+    }
+}
+.error {
+    color: #e53e3e;
+    font-size: 0.875rem;
+    margin-top: -0.5rem;
+    margin-bottom: 0.5rem;
+}
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(200px, 1fr)); /* Change this to adjust the number of columns */
+    grid-gap: 1rem;
+}
+.wider-section {
+    max-width: 1200px; /* Adjust this to set the width of the wider section */
+    margin: 0 auto; /* Centers the section horizontally */
+}
+
+.categories {
+    display: flex;              /* make items in a row */
+    justify-content: center;    /* center horizontally */
+    gap: 10px;                  /* space between buttons */
+    margin: 20px;
+}
+
+.categories button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #0f4971;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* .dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    background-color: #0f4971;
+    color: #fff;
+    padding: 12px 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 10px;
+    color: black;
+    text-decoration: none;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+/* Show dropdown on hover */
+/* .dropdown:hover .dropdown-content {
+    display: block;
+} */
+
+.dropdown-btn {
+    background-color: #0f4971;
+    color: #fff;
+    padding: 12px 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+/* Hover effect for button */
+.dropdown-btn:hover {
+    background-color: #13639a;
+}
+
+/* Dropdown content */
+.dropdown-content {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 180px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+
+/* Show dropdown */
+.dropdown:hover .dropdown-content {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* Dropdown items */
+.dropdown-content a {
+    display: block;
+    padding: 12px 16px;
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.25s ease;
+    border-radius: 12px;
+}
+
+/* Hover item */
+.dropdown-content a:hover {
+    background-color: #0f4971;
+    color: #fff;
+    padding-left: 20px;
+}
+
+/* Active item (optional) */
+.dropdown-content a.active {
+    background-color: #13639a;
+    color: #fff;
+}
+
+/* Smooth divider (optional) */
+.dropdown-content a:not(:last-child) {
+    border-bottom: 1px solid #eee;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Parent dropdown */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Submenu container */
+.submenu {
+    position: relative;
+}
+
+/* Submenu hidden by default */
+.submenu-content {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    margin-left: -5px;
+    min-width: 180px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    opacity: 0;
+    transform: translateX(-10px);
+    pointer-events: auto;
+    transition: all 0.1s ease;
+    z-index: 200; /* Higher than the main dropdown */
+    visibility: hidden;
+}
+
+/* Show submenu on hover */
+.submenu:hover .submenu-content {
+    opacity: 1;
+    transform: translateX(0);
+    /* visibility: visible; */
+}
+
+/* Style submenu items */
+.submenu-content a {
+    display: block;
+    padding: 12px 16px;
+    color: #333;
+    text-decoration: none;
+}
+
+/* Hover effect */
+.submenu-content a:hover {
+    background-color: #0f4971;
+    color: #fff;
+}
+
+/* Make parent item look interactive */
+.submenu > a {
+    display: block;
+    padding: 12px 16px;
+    color: #333;
+    position: relative;
+}
+
+.submenu > a:hover {
+    background-color: #0f4971;
+    color: #fff;
+}
+
+.submenu:hover > .submenu-content {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
+.card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card:hover {
+    transform: translateY(-5px); /* Lifts the card slightly */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1); /* Adds a deeper shadow */
+    border-color: #0f4971; /* Highlights the border */
+}
+
+/* Ensure the button doesn't swallow the click but looks consistent */
+.view-btn {
+    pointer-events: none; /* This makes the click pass THROUGH the button to the card */
+    margin-top: auto;
+}
