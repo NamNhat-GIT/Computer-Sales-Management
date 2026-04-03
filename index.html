@@ -9,64 +9,103 @@
 </head>
 <body>
     <header>
-        <div class="brand">Computer Sales Management</div>
-        <nav id="siteNav"></nav>
-        <a href="index.html" class="navigate-button">Home</a>
-        <a href="ProfilePage.html" class="navigate-button">Profile</a>
-        <a href="ContactPage.html" class="navigate-button">Contact</a>
-        <a href="LoginPage.html" class="navigate-button">Login</a>
-        <a href="RegisterPage.html" class="navigate-button">Register</a>
-        <a href="MyCartPage.html" class="navigate-button">My Cart</a>
+        <div class="brand">🛒 Computer Sales</div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="ProfilePage.html">Profile</a>
+            <a href="ContactPage.html">Contact</a>
+            <a href="LoginPage.html">Login</a>
+            <a href="RegisterPage.html">Register</a>
+        </nav>
+        <div class="header-right">
+            <a href="MyCartPage.html" class="navigate-button" style="position: relative;">
+                🛒 Cart
+                <span class="cart-counter" id="cartCount" style="display: none;">0</span>
+            </a>
+        </div>
     </header>
     <main>
         <section>
             <h1>Welcome to the Computer Sales Management System</h1>
+            <p>Discover a wide range of high-quality computers and accessories</p>
         </section>
-        <!-- Category dropdown -->
-        <div class="dropdown">
-            <button class="dropdown-btn">Select Category</button>
-                <div class="dropdown-content">
-                    <a href="#" onclick="filterProducts('all')">All</a>
-                    <!-- laptop submenu -->
-                    <div class="submenu">
-                        <a href="#" onclick="filterProducts('laptops')">Laptops</a>
-                        <div class="submenu-content">
-                            <a href="#" onclick="filterProducts('ultrabooks')">Ultrabooks</a>
-                            <a href="#" onclick="filterProducts('gaming-laptop')">Gaming Laptop</a>
-                            <a href="#" onclick="filterProducts('office-laptop')">Office Laptop</a>
-                            <a href="#" onclick="filterProducts('laptops Apple')">Apple</a>
-                            <a href="#" onclick="filterProducts('laptops Dell')">Dell</a>
-                            <a href="#" onclick="filterProducts('laptops HP')">HP</a>
-                            <a href="#" onclick="filterProducts('laptops Lenovo')">Lenovo</a>
+
+        <!-- Search and Filter Bar -->
+        <section>
+            <div class="search-filter-bar">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Search products..." onkeyup="searchProducts()">
+                </div>
+                <select class="sort-dropdown" id="sortSelect" onchange="sortProducts()">
+                    <option value="">Sort By...</option>
+                    <option value="name-asc">Name: A-Z</option>
+                    <option value="name-desc">Name: Z-A</option>
+                    <option value="price-asc">Price: Low to High</option>
+                    <option value="price-desc">Price: High to Low</option>
+                    <option value="rating">Best Rated</option>
+                </select>
+                <div class="dropdown">
+                    <button class="dropdown-btn">📁 Categories</button>
+                    <div class="dropdown-content">
+                        <a href="#" onclick="filterProducts('all')">All Products</a>
+                        <!-- laptop submenu -->
+                        <div class="submenu">
+                            <a href="#" onclick="filterProducts('laptops')">💻 Laptops</a>
+                            <div class="submenu-content">
+                                <a href="#" onclick="filterProducts('ultrabooks')">Ultrabooks</a>
+                                <a href="#" onclick="filterProducts('gaming-laptop')">Gaming Laptop</a>
+                                <a href="#" onclick="filterProducts('office-laptop')">Office Laptop</a>
+                                <a href="#" onclick="filterProducts('laptops Apple')">Apple</a>
+                                <a href="#" onclick="filterProducts('laptops Dell')">Dell</a>
+                                <a href="#" onclick="filterProducts('laptops HP')">HP</a>
+                                <a href="#" onclick="filterProducts('laptops Lenovo')">Lenovo</a>
+                            </div>
                         </div>
-                    </div>
-                    <!-- phone submenu -->
-                    <div class="submenu">
-                        <a href="#" onclick="filterProducts('phones')">Phones</a>
-                        <div class="submenu-content">
-                            <a href="#" onclick="filterProducts('phones Apple')">Apple Phones</a>
-                            <a href="#" onclick="filterProducts('phones Samsung')">Samsung</a>
-                            <a href="#" onclick="filterProducts('phones Nokia')">Nokia</a>
+                        <!-- phone submenu -->
+                        <div class="submenu">
+                            <a href="#" onclick="filterProducts('phones')">📱 Phones</a>
+                            <div class="submenu-content">
+                                <a href="#" onclick="filterProducts('phones Apple')">Apple Phones</a>
+                                <a href="#" onclick="filterProducts('phones Samsung')">Samsung</a>
+                                <a href="#" onclick="filterProducts('phones Nokia')">Nokia</a>
+                            </div>
                         </div>
-                    </div>
-                    <!-- accessories submenu -->
-                    <div class="submenu">
-                        <a href="#" onclick="filterProducts('accessories')">Accessories</a>
-                        <div class="submenu-content">
-                            <a href="#" onclick="filterProducts('gaming-mouse')">Gaming Mouse</a>
-                            <a href="#" onclick="filterProducts('office-mouse')">Mouse Pads</a>
-                            <a href="#" onclick="filterProducts('gaming-keyboards')">Gaming Keyboards</a>
-                            <a href="#" onclick="filterProducts('office-keyboards')">Office Keyboards</a>
+                        <!-- accessories submenu -->
+                        <div class="submenu">
+                            <a href="#" onclick="filterProducts('accessories')">🖱️ Accessories</a>
+                            <div class="submenu-content">
+                                <a href="#" onclick="filterProducts('gaming-mouse')">Gaming Mouse</a>
+                                <a href="#" onclick="filterProducts('office-mouse')">Mouse Pads</a>
+                                <a href="#" onclick="filterProducts('gaming-keyboards')">Gaming Keyboards</a>
+                                <a href="#" onclick="filterProducts('office-keyboards')">Office Keyboards</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-        </div>
+                <button class="secondary-btn" onclick="resetFilters()">🔄 Reset</button>
+            </div>
+        </section>
 
-    <!-- Display product cards -->
+        <!-- Display product cards -->
         <div class="products-grid" id="productList"></div>
     </main>
     <footer>
-        2026 Computer Sales Management Systems
+        © 2026 Computer Sales Management Systems | All Rights Reserved
     </footer>
+    <script>
+        // Update cart counter
+        function updateCartCounter() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const count = cart.length;
+            const counter = document.getElementById('cartCount');
+            if (count > 0) {
+                counter.textContent = count;
+                counter.style.display = 'flex';
+            } else {
+                counter.style.display = 'none';
+            }
+        }
+        updateCartCounter();
+    </script>
 </body>
 </html>

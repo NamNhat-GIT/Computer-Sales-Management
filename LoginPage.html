@@ -5,33 +5,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Computer Sales</title>
     <link rel="stylesheet" href="css/css.css">
+    <script src="js/SecurityUtils.js" defer></script>
     <script src="js/Login.js" defer></script>
 </head>
 <body>
     <header>
-        <div class="brand">Computer Sales Management</div>
-        <nav id="siteNav"></nav>
-        <a href="index.html" class="navigate-button">Home</a>
-        <a href="ProfilePage.html" class="navigate-button">Profile</a>
-        <a href="ContactPage.html" class="navigate-button">Contact</a>
-        <a href="LoginPage.html" class="navigate-button">Login</a>
-        <a href="RegisterPage.html" class="navigate-button">Register</a>
-        <a href="MyCartPage.html" class="navigate-button">My Cart</a>
+        <div class="brand">🛒 Computer Sales</div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="ProfilePage.html">Profile</a>
+            <a href="ContactPage.html">Contact</a>
+            <a href="LoginPage.html">Login</a>
+            <a href="RegisterPage.html">Register</a>
+        </nav>
+        <div class="header-right">
+            <a href="MyCartPage.html" class="navigate-button" style="position: relative;">
+                🛒 Cart
+                <span class="cart-counter" id="cartCount" style="display: none;">0</span>
+            </a>
+        </div>
     </header>
     <main>
         <section>
-            <h1>Login</h1>
+            <h1>Sign In</h1>
+            <p>Welcome back! Please sign in to your account</p>
             <form class="form-grid">
-                <input type="email" placeholder="Email" required>
+                <input type="email" placeholder="Email Address" required>
                 <p id="EmailError" class="error"></p>
+
                 <input type="password" placeholder="Password" required>
                 <p id="PasswordError" class="error"></p>
-                <button type="button" onclick="LoginButton()">Sign In</button>
+
+                <button type="button" class="primary-btn" onclick="LoginButton()">Sign In</button>
+
+                <p style="text-align: center; margin-top: 1rem;">
+                    Don't have an account? <a href="RegisterPage.html" style="color: #0f4971; font-weight: bold;">Register here</a>
+                </p>
             </form>
         </section>
     </main>
     <footer>
-        2026 Computer Sales Management Systems
+        © 2026 Computer Sales Management Systems | All Rights Reserved
     </footer>
+    <script>
+        // Update cart counter
+        function updateCartCounter() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const count = cart.length;
+            const counter = document.getElementById('cartCount');
+            if (counter) {
+                if (count > 0) {
+                    counter.textContent = count;
+                    counter.style.display = 'flex';
+                } else {
+                    counter.style.display = 'none';
+                }
+            }
+        }
+        updateCartCounter();
+    </script>
 </body>
 </html>

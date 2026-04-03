@@ -8,29 +8,46 @@
 </head>
 <body>
     <header>
-        <div class="brand">Computer Sales Management</div>
-        <nav id="siteNav"></nav>
-        <a href="index.html" class="navigate-button">Home</a>
-        <a href="ProfilePage.html" class="navigate-button">Profile</a>
-        <a href="ContactPage.html" class="navigate-button">Contact</a>
-        <a href="LoginPage.html" class="navigate-button">Login</a>
-        <a href="RegisterPage.html" class="navigate-button">Register</a>
-        <a href="MyCartPage.html" class="navigate-button">My Cart</a>
+        <div class="brand">🛒 Computer Sales</div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="ProfilePage.html">Profile</a>
+            <a href="ContactPage.html">Contact</a>
+            <a href="LoginPage.html">Login</a>
+            <a href="RegisterPage.html">Register</a>
+        </nav>
+        <div class="header-right">
+            <a href="MyCartPage.html" class="navigate-button" style="position: relative;">
+                🛒 Cart
+                <span class="cart-counter" id="cartCount" style="display: none;">0</span>
+            </a>
+        </div>
     </header>
+
     <main>
         <section>
-            <h1>My Cart</h1>
-            <p>Review the items you are ready to purchase.</p>
-            <div class="card">
-                <h2>Items in your cart</h2>
-
-                
-                <button type="button">Proceed to Checkout</button>
-            </div>
+            <h1>🛒 My Shopping Cart</h1>
+            <p>Review and manage the items in your cart before checkout</p>
         </section>
+
+        <div style="display: grid; grid-template-columns: 1fr 350px; gap: 2rem;">
+            <!-- Cart Items -->
+            <section>
+                <h2>Items in your cart</h2>
+                <div id="cartContainer"></div>
+            </section>
+
+            <!-- Cart Summary -->
+            <section>
+                <h2>Cart Summary</h2>
+                <div id="cartSummary" style="position: sticky; top: 20px;"></div>
+            </section>
+        </div>
     </main>
+
     <footer>
-        � 2026 Computer Sales Management Systems
+        © 2026 Computer Sales Management Systems | All Rights Reserved
     </footer>
+    <script src="js/MyCart.js"></script>
 </body>
 </html>

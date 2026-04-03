@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Computer Sales</title>
+    <link rel="stylesheet" href="css/css.css">
+    <script src="js/SecurityUtils.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="brand">🛒 Computer Sales</div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="ProfilePage.html">Profile</a>
+            <a href="ContactPage.html">Contact</a>
+            <a href="LoginPage.html">Login</a>
+            <a href="RegisterPage.html">Register</a>
+        </nav>
+        <div class="header-right">
+            <a href="MyCartPage.html" class="navigate-button" style="position: relative;">
+                🛒 Cart
+                <span class="cart-counter" id="cartCount" style="display: none;">0</span>
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <section>
+            <h1>Checkout</h1>
+            <p>Complete your purchase securely</p>
+        </section>
+
+        <section>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                <!-- Left Side: Billing and Shipping Information -->
+                <div>
+                    <h2>Billing Information</h2>
+                    <form class="form-grid" id="billingForm">
+                        <input type="text" id="fullName" placeholder="Full Name" required>
+                        <p id="nameError" class="error"></p>
+
+                        <input type="email" id="email" placeholder="Email Address" required>
+                        <p id="emailError" class="error"></p>
+
+                        <input type="tel" id="phone" placeholder="Phone Number" required>
+                        <p id="phoneError" class="error"></p>
+
+                        <input type="text" id="address" placeholder="Street Address" required>
+                        <p id="addressError" class="error"></p>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <input type="text" id="city" placeholder="City" required>
+                            <input type="text" id="zipCode" placeholder="ZIP Code" required>
+                        </div>
+                        <p id="cityError" class="error"></p>
+
+                        <input type="text" id="country" placeholder="Country" required>
+                        <p id="countryError" class="error"></p>
+                    </form>
+
+                    <h2 style="margin-top: 2rem;">Payment Information</h2>
+                    <form class="form-grid" id="paymentForm">
+                        <input type="text" id="cardName" placeholder="Full Name on Card" required>
+                        <p id="cardNameError" class="error"></p>
+
+                        <input type="text" id="cardNumber" placeholder="Card Number (16 digits)" maxlength="16" required>
+                        <p id="cardNumberError" class="error"></p>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <input type="text" id="expiryDate" placeholder="MM/YY" maxlength="5" required>
+                            <input type="text" id="cvv" placeholder="CVV" maxlength="3" required>
+                        </div>
+                        <p id="expiryError" class="error"></p>
+
+                        <label style="margin-top: 1rem;">
+                            <input type="checkbox" id="sameAsShipping"> Billing address same as shipping
+                        </label>
+                    </form>
+                </div>
+
+                <!-- Right Side: Order Summary -->
+                <div>
+                    <h2>Order Summary</h2>
+                    <div style="background-color: #f9f9f9; padding: 1.5rem; border-radius: 8px; position: sticky; top: 20px;">
+                        <div id="orderItems"></div>
+                        <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid #e0e0e0;">
+                        <div style="display: grid; gap: 0.75rem;">
+                            <div style="display: flex; justify-content: space-between;">
+                                <strong>Subtotal:</strong>
+                                <span id="subtotal">$0.00</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <strong>Shipping:</strong>
+                                <span id="shipping">$10.00</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <strong>Tax:</strong>
+                                <span id="tax">$0.00</span>
+                            </div>
+                            <hr style="border: none; border-top: 1px solid #e0e0e0;">
+                            <div style="display: flex; justify-content: space-between; font-size: 1.3rem; font-weight: bold; color: #27ae60;">
+                                <strong>Total:</strong>
+                                <span id="total">$0.00</span>
+                            </div>
+                        </div>
+
+                        <button class="primary-btn" style="width: 100%; margin-top: 1.5rem;" onclick="completeCheckout()" id="completeBtn">
+                            Complete Purchase
+                        </button>
+                        <a href="MyCartPage.html" class="secondary-btn" style="width: 100%; margin-top: 0.5rem; display: block; text-align: center;">
+                            Back to Cart
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        © 2026 Computer Sales Management Systems | All Rights Reserved
+    </footer>
+
+    <script>
+        // Display cart items in order summary
+        function loadOrderSummary() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const orderItems = document.getElementById('orderItems');
+            let subtotal = 0;
+
+            orderItems.innerHTML = '';
+
+            if (cart.length === 0) {
+                orderItems.innerHTML = '<p>No items in cart</p>';
+                return;
+            }
+
+            cart.forEach(item => {
+                const price = parseFloat(item.price.replace(/,/g, '')) || 0;
+                const itemTotal = price * (item.quantity || 1);
+                subtotal += itemTotal;
+
+                const itemHTML = `
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                        <div>
+                            <strong>${item.name}</strong>
+                            <p style="color: #666; font-size: 0.9rem;">Qty: ${item.quantity || 1}</p>
+                        </div>
+                        <div style="text-align: right;">
+                            <p>$${price.toFixed(2)} x ${item.quantity || 1}</p>
+                            <p style="font-weight: bold; color: #27ae60;">$${itemTotal.toFixed(2)}</p>
+                        </div>
+                    </div>
+                `;
+                orderItems.innerHTML += itemHTML;
+            });
+
+            // Calculate totals
+            const shipping = 10.00;
+            const tax = subtotal * 0.08; // 8% tax
+            const total = subtotal + shipping + tax;
+
+            document.getElementById('subtotal').textContent = '$' + subtotal.toFixed(2);
+            document.getElementById('tax').textContent = '$' + tax.toFixed(2);
+            document.getElementById('total').textContent = '$' + total.toFixed(2);
+        }
+
+        // Validate checkout form
+        function validateCheckoutForm() {
+            let isValid = true;
+
+            // Validate required fields
+            const fields = ['fullName', 'email', 'phone', 'address', 'city', 'zipCode', 'country', 'cardName', 'cardNumber', 'expiryDate', 'cvv'];
+
+            fields.forEach(field => {
+                const element = document.getElementById(field);
+                const errorElement = document.getElementById(field + 'Error');
+                
+                if (!element) {
+                    console.warn('Element not found:', field);
+                    isValid = false;
+                    return;
+                }
+
+                if (!element.value.trim()) {
+                    if (typeof SecurityUtils !== 'undefined' && errorElement) {
+                        SecurityUtils.showErrorMessage(field + 'Error', 'This field is required');
+                    }
+                    isValid = false;
+                } else if (errorElement) {
+                    errorElement.textContent = '';
+                }
+            });
+
+            // Validate email
+            const emailElement = document.getElementById('email');
+            if (emailElement && emailElement.value.trim()) {
+                if (typeof SecurityUtils !== 'undefined' && !SecurityUtils.validateEmail(emailElement.value)) {
+                    SecurityUtils.showErrorMessage('emailError', 'Invalid email address');
+                    isValid = false;
+                }
+            }
+
+            // Validate card number
+            const cardNumberElement = document.getElementById('cardNumber');
+            if (cardNumberElement && cardNumberElement.value) {
+                if (!/^\d{16}$/.test(cardNumberElement.value)) {
+                    if (typeof SecurityUtils !== 'undefined') {
+                        SecurityUtils.showErrorMessage('cardNumberError', 'Card number must be 16 digits');
+                    }
+                    isValid = false;
+                }
+            }
+
+            // Validate expiry date
+            const expiryElement = document.getElementById('expiryDate');
+            if (expiryElement && expiryElement.value) {
+                if (!/^\d{2}\/\d{2}$/.test(expiryElement.value)) {
+                    if (typeof SecurityUtils !== 'undefined') {
+                        SecurityUtils.showErrorMessage('expiryError', 'Expiry date must be MM/YY format');
+                    }
+                    isValid = false;
+                }
+            }
+
+            // Validate CVV
+            const cvvElement = document.getElementById('cvv');
+            if (cvvElement && cvvElement.value) {
+                if (!/^\d{3}$/.test(cvvElement.value)) {
+                    if (typeof SecurityUtils !== 'undefined') {
+                        SecurityUtils.showErrorMessage('expiryError', 'CVV must be 3 digits');
+                    }
+                    isValid = false;
+                }
+            }
+
+            return isValid;
+        }
+
+        // Complete checkout
+        function completeCheckout() {
+            // Ensure SecurityUtils is loaded
+            if (typeof SecurityUtils === 'undefined' || !SecurityUtils.showCustomAlert) {
+                console.error('SecurityUtils not loaded', SecurityUtils);
+                alert('Please refresh the page and try again');
+                return;
+            }
+
+            if (!validateCheckoutForm()) {
+                SecurityUtils.showCustomAlert('Please fill all fields correctly', 'error', 3000);
+                return;
+            }
+
+            try {
+                const orderData = {
+                    customer: {
+                        fullName: document.getElementById('fullName').value,
+                        email: document.getElementById('email').value,
+                        phone: document.getElementById('phone').value,
+                        address: document.getElementById('address').value,
+                        city: document.getElementById('city').value,
+                        zipCode: document.getElementById('zipCode').value,
+                        country: document.getElementById('country').value
+                    },
+                    cart: JSON.parse(localStorage.getItem('cart')) || [],
+                    orderDate: new Date().toISOString(),
+                    status: 'completed'
+                };
+
+                // Save order
+                let orders = JSON.parse(localStorage.getItem('orders') || '[]');
+                orders.push(orderData);
+                localStorage.setItem('orders', JSON.stringify(orders));
+
+                // Clear cart
+                localStorage.removeItem('cart');
+
+                // Show success message
+                SecurityUtils.showCustomAlert('Order completed successfully! Thank you for your purchase.', 'success', 3000);
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 3000);
+            } catch (error) {
+                console.error('Error completing checkout:', error);
+                SecurityUtils.showCustomAlert('An error occurred: ' + error.message, 'error', 3000);
+            }
+        }
+
+        // Initialize
+        function initializeCheckout() {
+            loadOrderSummary();
+            updateCartCounter();
+            
+            // Make completeCheckout globally available
+            window.completeCheckout = completeCheckout;
+            
+            const btn = document.getElementById('completeBtn');
+            if (btn) {
+                btn.disabled = false;
+            }
+        }
+
+        // Wait for DOM to be ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeCheckout);
+        } else {
+            initializeCheckout();
+        }
+
+        // Update cart counter
+        function updateCartCounter() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const count = cart.length;
+            const counter = document.getElementById('cartCount');
+            if (counter) {
+                if (count > 0) {
+                    counter.textContent = count;
+                    counter.style.display = 'flex';
+                } else {
+                    counter.style.display = 'none';
+                }
+            }
+        }
+    </script>
+</body>
+</html>
