@@ -30,6 +30,17 @@ header .brand {
     letter-spacing: 0.5px;
 }
 
+.logo {
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+    display: flex;
+    align-items: center;
+    border: 2px solid #fff;
+    border-radius: 8px;
+    padding: 2px;
+}
+
 .header-right {
     display: flex;
     align-items: center;
